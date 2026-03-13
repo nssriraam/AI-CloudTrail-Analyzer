@@ -1,0 +1,206 @@
+{
+  "Records": [
+    {
+      "eventID": "evt-001",
+      "eventTime": "2024-03-10T06:12:44Z",
+      "eventName": "ConsoleLogin",
+      "eventSource": "signin.amazonaws.com",
+      "sourceIPAddress": "192.168.1.105",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "admin"},
+      "responseElements": {"ConsoleLogin": "Success"}
+    },
+    {
+      "eventID": "evt-002",
+      "eventTime": "2024-03-10T06:45:00Z",
+      "eventName": "ConsoleLogin",
+      "eventSource": "signin.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "admin"},
+      "responseElements": {"ConsoleLogin": "Failure"}
+    },
+    {
+      "eventID": "evt-003",
+      "eventTime": "2024-03-10T06:46:11Z",
+      "eventName": "ConsoleLogin",
+      "eventSource": "signin.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "admin"},
+      "responseElements": {"ConsoleLogin": "Failure"}
+    },
+    {
+      "eventID": "evt-004",
+      "eventTime": "2024-03-10T06:47:02Z",
+      "eventName": "ConsoleLogin",
+      "eventSource": "signin.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "admin"},
+      "responseElements": {"ConsoleLogin": "Failure"}
+    },
+    {
+      "eventID": "evt-005",
+      "eventTime": "2024-03-10T07:10:22Z",
+      "eventName": "GetSecretValue",
+      "eventSource": "secretsmanager.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "errorCode": "AccessDenied",
+      "errorMessage": "User is not authorized to perform this action"
+    },
+    {
+      "eventID": "evt-006",
+      "eventTime": "2024-03-10T07:30:45Z",
+      "eventName": "CreateUser",
+      "eventSource": "iam.amazonaws.com",
+      "sourceIPAddress": "192.168.1.105",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "admin"},
+      "requestParameters": {"userName": "backdoor-user"}
+    },
+    {
+      "eventID": "evt-007",
+      "eventTime": "2024-03-10T07:35:10Z",
+      "eventName": "AttachUserPolicy",
+      "eventSource": "iam.amazonaws.com",
+      "sourceIPAddress": "192.168.1.105",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "admin"},
+      "requestParameters": {"userName": "backdoor-user", "policyArn": "arn:aws:iam::aws:policy/AdministratorAccess"}
+    },
+    {
+      "eventID": "evt-008",
+      "eventTime": "2024-03-10T08:05:33Z",
+      "eventName": "RunInstances",
+      "eventSource": "ec2.amazonaws.com",
+      "sourceIPAddress": "102.45.67.89",
+      "awsRegion": "ap-northeast-3",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "requestParameters": {"instanceType": "t3.xlarge", "minCount": 5, "maxCount": 5}
+    },
+    {
+      "eventID": "evt-009",
+      "eventTime": "2024-03-10T08:20:00Z",
+      "eventName": "DeleteTrail",
+      "eventSource": "cloudtrail.amazonaws.com",
+      "sourceIPAddress": "102.45.67.89",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "requestParameters": {"name": "main-audit-trail"}
+    },
+    {
+      "eventID": "evt-010",
+      "eventTime": "2024-03-10T08:25:14Z",
+      "eventName": "StopLogging",
+      "eventSource": "cloudtrail.amazonaws.com",
+      "sourceIPAddress": "102.45.67.89",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "requestParameters": {"name": "backup-trail"}
+    },
+    {
+      "eventID": "evt-011",
+      "eventTime": "2024-03-10T09:00:00Z",
+      "eventName": "ListBuckets",
+      "eventSource": "s3.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "responseElements": null
+    },
+    {
+      "eventID": "evt-012",
+      "eventTime": "2024-03-10T09:05:22Z",
+      "eventName": "GetBucketAcl",
+      "eventSource": "s3.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "requestParameters": {"bucketName": "prod-data-backup"}
+    },
+    {
+      "eventID": "evt-013",
+      "eventTime": "2024-03-10T09:10:45Z",
+      "eventName": "PutBucketPolicy",
+      "eventSource": "s3.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "requestParameters": {"bucketName": "prod-data-backup", "policy": "{\"Effect\":\"Allow\",\"Principal\":\"*\"}"}
+    },
+    {
+      "eventID": "evt-014",
+      "eventTime": "2024-03-10T09:30:00Z",
+      "eventName": "CreateAccessKey",
+      "eventSource": "iam.amazonaws.com",
+      "sourceIPAddress": "192.168.1.105",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "backdoor-user"},
+      "responseElements": {"accessKey": {"accessKeyId": "AKIAIOSFODNN7EXAMPLE", "status": "Active"}}
+    },
+    {
+      "eventID": "evt-015",
+      "eventTime": "2024-03-10T10:00:11Z",
+      "eventName": "AssumeRole",
+      "eventSource": "sts.amazonaws.com",
+      "sourceIPAddress": "102.45.67.89",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "backdoor-user"},
+      "requestParameters": {"roleArn": "arn:aws:iam::123456789:role/OrganizationAccountAccessRole"}
+    },
+    {
+      "eventID": "evt-016",
+      "eventTime": "2024-03-10T10:15:00Z",
+      "eventName": "DescribeInstances",
+      "eventSource": "ec2.amazonaws.com",
+      "sourceIPAddress": "192.168.1.200",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "ops-user"},
+      "responseElements": null
+    },
+    {
+      "eventID": "evt-017",
+      "eventTime": "2024-03-10T10:20:00Z",
+      "eventName": "PutObject",
+      "eventSource": "s3.amazonaws.com",
+      "sourceIPAddress": "192.168.1.200",
+      "awsRegion": "ap-south-1",
+      "userIdentity": {"type": "IAMUser", "userName": "ops-user"},
+      "requestParameters": {"bucketName": "app-logs-bucket", "key": "logs/app-2024-03-10.log"}
+    },
+    {
+      "eventID": "evt-018",
+      "eventTime": "2024-03-10T10:45:00Z",
+      "eventName": "GetObject",
+      "eventSource": "s3.amazonaws.com",
+      "sourceIPAddress": "45.33.32.156",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "dev-user"},
+      "requestParameters": {"bucketName": "prod-data-backup", "key": "sensitive/customer-data.csv"},
+      "errorCode": "AccessDenied"
+    },
+    {
+      "eventID": "evt-019",
+      "eventTime": "2024-03-10T11:00:00Z",
+      "eventName": "DeleteObject",
+      "eventSource": "s3.amazonaws.com",
+      "sourceIPAddress": "102.45.67.89",
+      "awsRegion": "us-east-1",
+      "userIdentity": {"type": "IAMUser", "userName": "backdoor-user"},
+      "requestParameters": {"bucketName": "prod-data-backup", "key": "sensitive/customer-data.csv"}
+    },
+    {
+      "eventID": "evt-020",
+      "eventTime": "2024-03-10T11:30:00Z",
+      "eventName": "CreateVpc",
+      "eventSource": "ec2.amazonaws.com",
+      "sourceIPAddress": "102.45.67.89",
+      "awsRegion": "eu-west-2",
+      "userIdentity": {"type": "IAMUser", "userName": "backdoor-user"},
+      "requestParameters": {"cidrBlock": "10.0.0.0/16"}
+    }
+  ]
+}

@@ -1,0 +1,216 @@
+============================================================
+AI-POWERED CLOUDTRAIL ANOMALY DETECTION REPORT
+============================================================
+
+Event: ConsoleLogin | Time: 2024-03-10T06:12:44Z
+Source IP: 192.168.1.105 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: An IAM user named "admin" successfully logged in to the AWS Management Console.  
+SUSPICION: This could be suspicious if the IP address (192.168.1.105) does not match the user's expected location or if the login time seems unusual. It's important to verify the legitimacy of this login attempt.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the user's recent activity, compare the login IP address to the user's known IPs, and investigate if there are any anomalies. If the login seems suspicious, contact the user to verify the legitimacy of the login attempt.
+------------------------------------------------------------
+
+Event: ConsoleLogin | Time: 2024-03-10T06:45:00Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: LOW  
+SUMMARY: An admin attempted to log in to the AWS Management Console but failed.  
+SUSPICION: This may not be suspicious if it is an expected login attempt that failed due to incorrect credentials or a temporary issue. However, if it occurs repeatedly or at unusual times, it could indicate an attempt to breach the account.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Check the event for any additional context, such as the source IP address and the time of the event. If the login attempt failed due to incorrect credentials, update the credentials. If the failure is unexpected, investigate further for potential security incidents.
+------------------------------------------------------------
+
+Event: ConsoleLogin | Time: 2024-03-10T06:46:11Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: LOW  
+SUMMARY: An IAM user attempted to log in to the AWS Management Console but failed.  
+SUSPICION: The attempt was unsuccessful, which is not inherently suspicious if it is within expected login attempts. However, if there are multiple failed attempts from the same source IP within a short period, it could indicate an attempt to brute-force the account.  
+MITRE_TECHNIQUE: Brute Force Attack  
+RECOMMENDED_ACTION: Monitor the source IP address for any further login attempts and check the user's authentication logs for any unusual activity. If the account has been compromised, change the password immediately and consider enabling MFA for added security.
+------------------------------------------------------------
+
+Event: ConsoleLogin | Time: 2024-03-10T06:47:02Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: An IAM user attempted to log in to the AWS Management Console but failed.  
+SUSPICION: This could be suspicious if the user is not expected to be accessing the console, or if the attempt was made from an unusual or unknown IP address.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Verify the user's access and activities. If the user is not expected to be accessing the console, investigate further to determine if this was an authorized access attempt or a potential security incident.
+------------------------------------------------------------
+
+Event: GetSecretValue | Time: 2024-03-10T07:10:22Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: An IAM user attempted to retrieve a secret value from AWS Secrets Manager but was denied access.  
+SUSPICION: This event may indicate an attempt to bypass security controls or escalate privileges. The user should not have access to this secret.  
+MITRE_TECHNIQUE: Privilege Escalation (T1013)  
+RECOMMENDED_ACTION: Review the IAM policy for "dev-user" to ensure it does not have unnecessary permissions. Implement stricter access controls and investigate why the user attempted to access the secret.
+------------------------------------------------------------
+
+Event: CreateUser | Time: 2024-03-10T07:30:45Z
+Source IP: 192.168.1.105 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: A new IAM user "backdoor-user" was created by the IAM user "admin" from the IP address "192.168.1.105" in the "us-east-1" region.  
+SUSPICION: This event may be suspicious as it indicates unauthorized creation of a new user, which could be used for unauthorized access or privilege escalation.  
+MITRE_TECHNIQUE: User Discovery  
+RECOMMENDED_ACTION: Review the creation of the new user "backdoor-user" to determine if it was authorized. Verify if there are any signs of malicious activity. If the creation was unexpected, investigate further to understand the context and determine if it was a potential security incident.
+------------------------------------------------------------
+
+Event: AttachUserPolicy | Time: 2024-03-10T07:35:10Z
+Source IP: 192.168.1.105 | Identity: IAMUser
+
+SEVERITY: HIGH  
+SUMMARY: The IAM user "admin" has attached the "AdministratorAccess" policy to the user "backdoor-user".  
+SUSPICION: This action is highly suspicious as it grants full administrative privileges to another user, potentially exposing the account to significant risks.  
+MITRE_TECHNIQUE: Privilege Escalation (T1054)  
+RECOMMENDED_ACTION: Review the event for any anomalies, investigate the source of the request, and revoke the policy if confirmed as malicious.
+------------------------------------------------------------
+
+Event: RunInstances | Time: 2024-03-10T08:05:33Z
+Source IP: 102.45.67.89 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: An IAM user named "dev-user" has initiated a request to launch 5 t3.xlarge instances in the ap-northeast-3 region.  
+SUSPICION: This may be suspicious if "dev-user" is not typically authorized to provision multiple instances, or if the request is unusual for their typical activities.  
+MITRE_TECHNIQUE: Cloud Infrastructure Compromise (CIC)  
+RECOMMENDED_ACTION: Review the user's access policies and recent activity to ensure that this request is authorized. If unusual, further investigate the user's identity and the context of the request.
+------------------------------------------------------------
+
+Event: DeleteTrail | Time: 2024-03-10T08:20:00Z
+Source IP: 102.45.67.89 | Identity: IAMUser
+
+SEVERITY: LOW  
+SUMMARY: A user deleted a CloudTrail trail named "main-audit-trail".  
+SUSPICION: This event appears to be routine and expected, as it involves the deletion of an audit trail, which is a standard practice for managing security logs. However, it is important to verify if the deletion was intentional and if the user has the necessary permissions to perform this action.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the deletion request for legitimacy and ensure that the user has the appropriate permissions. If the deletion is unexpected, investigate further to determine if it was authorized.
+------------------------------------------------------------
+
+Event: StopLogging | Time: 2024-03-10T08:25:14Z
+Source IP: 102.45.67.89 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: The IAM user "dev-user" stopped logging for the CloudTrail trail named "backup-trail" in the "ap-south-1" region.  
+SUSPICION: Stopping logging for a trail could be suspicious if it is done outside of normal operational procedures, as it might indicate an attempt to hide or manipulate audit trails for security assessments or other malicious activities.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the account's recent activities, check for any unusual patterns, and consider if this action aligns with the user's role and responsibilities. If necessary, investigate further and potentially notify the appropriate security teams or initiate a security review.
+------------------------------------------------------------
+
+Event: ListBuckets | Time: 2024-03-10T09:00:00Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: LOW  
+SUMMARY: A user named "dev-user" in the "dev-user" IAM group attempted to list the S3 buckets in the "us-east-1" region.  
+SUSPICION: This event is not inherently suspicious as listing S3 buckets is a common action for users who need to manage their resources. However, the source IP address "45.33.32.156" should be investigated further to determine if it is a known or trusted IP.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the source IP address and compare it against known or trusted IP addresses. If the IP is untrusted, investigate further to determine the source and the intent behind the action. If the IP is trusted, monitor the user's activity closely for any unusual behavior.
+------------------------------------------------------------
+
+Event: GetBucketAcl | Time: 2024-03-10T09:05:22Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: LOW  
+SUMMARY: The user `dev-user` attempted to retrieve the ACL for the S3 bucket `prod-data-backup`.  
+SUSPICION: This action is generally non-suspicious as it is a common practice to check permissions on production data buckets to ensure proper access control. However, the user `dev-user` typically handles development-related tasks, which might raise suspicions if they have access to production data.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the user `dev-user`'s access policies and ensure that they have appropriate permissions on the `prod-data-backup` bucket. Consider if the user's access should be limited to a more restrictive set of permissions. Additionally, monitor for similar events in the future to identify any anomalies or unusual access patterns.
+------------------------------------------------------------
+
+Event: PutBucketPolicy | Time: 2024-03-10T09:10:45Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: The IAM user "dev-user" in the "us-east-1" region attempted to set a bucket policy on the "prod-data-backup" S3 bucket granting public access.  
+SUSPICION: This may be suspicious as granting public access to a production data backup bucket can expose sensitive information.  
+MITRE_TECHNIQUE: Unauthorized Modification of Object Properties (T1110)  
+RECOMMENDED_ACTION: Review the user's permissions, verify the necessity of the policy change, and consider implementing stricter access controls.
+------------------------------------------------------------
+
+Event: CreateAccessKey | Time: 2024-03-10T09:30:00Z
+Source IP: 192.168.1.105 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: A new access key was created for the IAM user "backdoor-user".  
+SUSPICION: This could be a normal administrative action, but it's unusual that a user named "backdoor-user" is creating an access key, suggesting it might be an attempt to establish unauthorized access.  
+MITRE_TECHNIQUE: Credential Access  
+RECOMMENDED_ACTION: Review the context and history of the "backdoor-user" to determine if the access key creation is legitimate. If the user is not expected to have access to IAM, investigate further and consider revoking the access key.
+------------------------------------------------------------
+
+Event: AssumeRole | Time: 2024-03-10T10:00:11Z
+Source IP: 102.45.67.89 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: An IAM user named `backdoor-user` attempted to assume the `OrganizationAccountAccessRole`.  
+SUSPICION: This action could be part of a privilege escalation attempt, given the nature of the role being assumed.  
+MITRE_TECHNIQUE: Privilege Escalation  
+RECOMMENDED_ACTION: Investigate the source IP address, review the user's activity history, and ensure that `backdoor-user` has the necessary privileges.
+------------------------------------------------------------
+
+Event: DescribeInstances | Time: 2024-03-10T10:15:00Z
+Source IP: 192.168.1.200 | Identity: IAMUser
+
+SEVERITY: LOW  
+SUMMARY: The user "ops-user" attempted to retrieve information about EC2 instances using the DescribeInstances API.  
+SUSPICION: This event by itself is not suspicious as it is a common and legitimate action for an IAM user to perform. However, it is worth monitoring if the user is accessing multiple instances or making frequent requests.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the user's access policies and monitor their subsequent activity for any unusual patterns. If multiple instances are being accessed or if the frequency of requests is abnormal, further investigation may be warranted.
+------------------------------------------------------------
+
+Event: PutObject | Time: 2024-03-10T10:20:00Z
+Source IP: 192.168.1.200 | Identity: IAMUser
+
+SEVERITY: LOW
+
+SUMMARY: The `ops-user` uploaded a log file to the `app-logs-bucket`.
+
+SUSPICION: This event appears to be a routine log upload, which is expected and not suspicious unless there are additional context or indicators of malicious activity.
+
+MITRE_TECHNIQUE: None
+
+RECOMMENDED_ACTION: Verify the content and context of the uploaded log file to ensure it is legitimate. If the log file is unexpected or contains unusual activity, investigate further.
+------------------------------------------------------------
+
+Event: GetObject | Time: 2024-03-10T10:45:00Z
+Source IP: 45.33.32.156 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: The IAM user "dev-user" attempted to download a sensitive customer data file from the "prod-data-backup" bucket, but was denied access.  
+SUSPICION: This event may be suspicious because it involves an attempt to access a file that is likely to contain sensitive information. The denial of access suggests that this could be an attempt to bypass security measures or a test of the system's security.  
+MITRE_TECHNIQUE: None  
+RECOMMENDED_ACTION: Review the access control policies for the "prod-data-backup" bucket to ensure that the appropriate permissions are set. Check the "dev-user" account for any unusual activity or access requests. Consider implementing additional logging and monitoring for access to sensitive data.
+------------------------------------------------------------
+
+Event: DeleteObject | Time: 2024-03-10T11:00:00Z
+Source IP: 102.45.67.89 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: An object was deleted from an S3 bucket.  
+SUSPICION: This could be suspicious if the deletion was not authorized or if the deleted object contains sensitive data.  
+MITRE_TECHNIQUE: Data Exfiltration  
+RECOMMENDED_ACTION: Investigate the deletion by reviewing the user's access history and the contents of the deleted object. If the object contains sensitive data, consider implementing additional security measures or notifying relevant stakeholders.
+------------------------------------------------------------
+
+Event: CreateVpc | Time: 2024-03-10T11:30:00Z
+Source IP: 102.45.67.89 | Identity: IAMUser
+
+SEVERITY: MEDIUM  
+SUMMARY: A new VPC was created in the eu-west-2 region by the IAM user "backdoor-user".  
+SUSPICION: This may be suspicious if "backdoor-user" is not a known or authorized user, as VPC creation can have significant implications for network isolation and security.  
+MITRE_TECHNIQUE: Command and Control (C2) Infrastructure – Establishing a Command and Control Channel through Network Services (T1046)  
+RECOMMENDED_ACTION: Verify the identity of the user, review the user's privileges, and assess the necessity of the VPC creation. Consider implementing additional security controls or monitoring to ensure that such actions are authorized and within the expected parameters.
+------------------------------------------------------------
+
+============================================================
+SUMMARY
+============================================================
+Total Events Analyzed: 20
+LOW: 7
+MEDIUM: 12
+HIGH: 1
+CRITICAL: 0
