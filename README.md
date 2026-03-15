@@ -1,4 +1,4 @@
-# AI-Powered CloudTrail Anomaly Detector 
+# AI-Powered CloudTrail Anomaly Detector
 
 ## Overview
 A local AI-powered security tool that analyzes AWS CloudTrail logs and performs 
